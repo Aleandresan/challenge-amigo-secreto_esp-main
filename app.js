@@ -26,20 +26,24 @@ function agragarAmigo(){
     inputAmigo.nodeValue = "";
 
     //Actualizar lista en .HTML
-
+    actualizarLista();
 }
 
 
+function actualizarLista(){
+    const listaAmigos = document.getElementById("listaAmigos");
+
+    //limpiar contenido actual de la lista
+    listaAmigos.innerHTML = ""; //borra el contenido previo dento de la lista
+
+    //recorrer array con for
+    for (let i = 0; i <amigos.length; i++){
+        const li = document.createElement("li");
+        li.textContent = amigos[i];
+        listaAmigos.appendChild(li);
 
 
+    }
 
-// agrega a la lista
+}
 
-
-
-
-
-// sorteo
-
-
-//entrega nombre
