@@ -6,53 +6,74 @@ let sorteoAleatorio = 0; //amigo sorteado
 
 function registrarAmigo() { //agregar amigos a la lista
     let ingresaAmigos = document.querySelector('input').value;
-    if (ingresaAmigos =='') {
-        alert('Por favor ingresa un nombre')
-        } else {
-            
+    if (ingresaAmigos =="") {
+        alert("¡Campo vacio!, por favor ingresa un nombre")
+        } else {   
         if (amigos.includes(ingresaAmigos)) {  //Validar que nombre no este duplicado
-        alert (`El nombre ${ingresaAmigos} ya esta en lista`);
+        alert (`El nombre " ${ingresaAmigos} " ya esta en lista`);
         return;
     }
         amigos.push(ingresaAmigos);
-   //
 }
-    limpiarCaja('amigo');
+    limpiarCaja("amigo");
     mostrarAmigos();
     return;   
 }
 
-
-
-function actualizarLista(){
-    const listaAmigos = document.getElementById("listaAmigos");
-
-    //limpiar contenido actual de la lista
-    listaAmigos.innerHTML = ""; //borra el contenido previo dento de la lista
-
-    //recorrer array con for
+function mostrarAmigos(){ //mostrar lista de amigos en pantalla
+    
+    let listadoAmigos = document.getElementById("listaAmigos");
+    listadoAmigos.innerHTML = "";
     for (let i = 0; i < amigos.length; i++) {
-        const li = document.createElement("li");
+        let li = document.createElement('li');
         li.textContent = amigos[i];
-        listaAmigos.appendChild(li);
+        listadoAmigos.appendChild(li);
     }
-
+    return;
 }
-
-
-
-//Funcion seleccionar amigo aleatorio desde lista
-function sortearAmigo() {
-    if (amigos.length === 0) {
-        alert ("No hay nombres en la lista, ingresa a tus amigos");
-        return;
-    }
-    // Generar indice aleatoreao para sortear amigo
-    const indiceAleatoreo = Math.floor(Math.random() * amigos.length); //Genera numero aleatorioa de 0 a l numero de amigos en array
-
-    const amigoSorteado = amigos[indiceAleatoreo];
-
-    const resultado = document.getElementById("resultado");
-    resultado.innerHTML = `Amigo sorteado es:" <strong>${amigoSorteado}<strong> `;
+//sortear amigo secreto con funcion de numero aleatorio
+function sortearAmigo() { 
+    let sorteo = document.getElementById("resultado");
+    sorteo.innerHTML = "";
+    if (amigos == "") {
+        alert ("Debes ingresar personas para el sorteo de Amigo Secreto");
+    } else {
+            sorteoAleatorio = amigos[numeroAleatorio()];
+        
+            if (amigos.length == listaSorteados.length){
+            alert ("Ya se sortearon todos los amigos, por favor reinicia el sorteo");
+            reiniciarSorteo();
+            } else { 
+            while(listaSorteados.includes(sorteoAleatorio)){
+                sorteoAleatorio = amigos[numeroAleatorio()];
+            }
+            let amigoSorteado = (`El amigo secreto sorteado es: "${sorteoAleatorio}"`);
+            let li = document.createElement('li');
+            li.textContent = amigoSorteado
+            sorteo.appendChild(li);
+            listaSorteados.push(sorteoAleatorio);
+            }
+             let listadoAmigos = document.getElementById("listaAmigos"); // Limpiar la lista de amigos
+             listadoAmigos.innerHTML = "";
+    } 
+     return;
 }
+// generer numero aleatorio para sortear amigo secreto
+function numeroAleatorio() { // Generar numero aleatorio
+    let aleatorio = Math.floor(Math.random() * amigos.length);
+    return aleatorio;
+}
+function limpiarCaja(elemento){ // limpiar caja de texto
+    document.getElementById(elemento).value = ""; 
+    return;
+}
+function reiniciarSorteo() {
+    amigos = [];            // Limpiar la lista de amigos
+    listaSorteados = [];    // Limpiar la lista de sorteados
+    let listadoAmigos = document.getElementById("listaAmigos"); // Limpiar la lista de amigos
+    listadoAmigos.innerHTML = "";
 
+    let sorteoResultado = document.getElementById("resultado"); 
+    sorteoResultado.innerHTML = ""; // Limpiar la interfaz para que quede vacía
+    return; // Reiniciar el sorteo
+}
