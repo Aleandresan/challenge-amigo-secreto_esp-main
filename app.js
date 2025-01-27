@@ -1,33 +1,27 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 
 let amigos = []; // almacenar nombres
+let listaSorteados = []; //lista de amigos sorteados
+let sorteoAleatorio = 0; //amigo sorteado
 
-// agregar nombres amigos funcion
-function agragarAmigo() {
-    const inputAmigo = document.getElementById("amigo");
-    const nombreAmigo = inputAmigo.value.trim();
-   
-    //valida que no este en blanco nommbre
-    if (nombreAmigo === "") {
-        alert ("ingresa un nombre");
+function registrarAmigo() { //agregar amigos a la lista
+    let ingresaAmigos = document.querySelector('input').value;
+    if (ingresaAmigos =='') {
+        alert('Por favor ingresa un nombre')
+        } else {
+            
+        if (amigos.includes(ingresaAmigos)) {  //Validar que nombre no este duplicado
+        alert (`El nombre ${ingresaAmigos} ya esta en lista`);
         return;
     }
-
-    //Validar que nombre no este duplicado
-    if (amigos.includes(nombreAmigo)) {
-        alert (`El nombre ${nombreAmigo} ya esta en lista`);
-        return;
-    }
-
-    // agregar nombre al array amigos
-    amigos.push(nombreAmigo);
-
-    //limpiar campo de entrada
-    inputAmigo.value = "";
-
-    //Actualizar lista en .HTML
-    actualizarLista();
+        amigos.push(ingresaAmigos);
+   //
 }
+    limpiarCaja('amigo');
+    mostrarAmigos();
+    return;   
+}
+
 
 
 function actualizarLista(){
